@@ -2,7 +2,7 @@
 <div class="row">
     <h1 class="text-center">Edit Campground</h1>
     <div class="col-6 offset-3">
-        <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate class="validated-form">
+        <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label for="title" class="form-label">Title : </label>
@@ -15,14 +15,6 @@
             <div class="mb-3">
                 <label for="location" class="form-label">Location : </label>
                 <input type="text" name="campground[location]" id="location" class="form-control" value="<%= campground.location %>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="image" class="form-label">image URL : </label>
-                <input type="text" name="campground[image]" id="image" class="form-control" value="<%= campground.image %>" required>
                 <div class="valid-feedback">
                     Looks good!
                 </div>
@@ -45,6 +37,22 @@
                 <div class="valid-feedback">
                     Looks good!
                 </div>
+            </div>
+
+            <div class="mt-4 mb-3 custom-file">
+                <label for="image" class="form-label">Add more images</label>
+                <input class="form-control" type="file" id="image" name="image" multiple>
+                <label for="image" class="custom-file-label text-muted"></label>
+            </div>
+
+            <div class="mb-3">
+                <% campground.images.forEach(function(img,i){ %>
+                    <img src="<%= img.thumbnail %>" alt="" class="img-thumbnail">
+                    <div class="form-check-inline">
+                        <input type="checkbox" id="image-<%= i %>" name="deleteImages[]" value="<%= img.filename %>">
+                    </div>
+                    <label for="image-<%= i %>">Delete</label>
+                <% }) %>
             </div>
 
             <div class="mb-3">
